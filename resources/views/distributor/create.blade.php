@@ -251,8 +251,8 @@
                                 <textarea type="text" class="form-control" id="alamat_distributor" name="alamat_distributor" placeholder="Enter Distributor Addresses" rows="5"></textarea>
                             </div>
                             <div class="mb-3 px-3 pt-3">
-                                <label for="notelpon_distributor" class="form-label">No. Telp Distributor</label>
-                                <input type="text" class="form-control" id="notelpon_distributor" name="notelpon_distributor" placeholder="Enter Distributor Phone Number">
+                                <label for="notelepon_distributor" class="form-label">No. Telp Distributor</label>
+                                <input type="text" class="form-control" id="notelepon_distributor" name="notelepon_distributor" placeholder="Enter Distributor Phone Number">
                             </div>
                         </div>
                     </div>
@@ -284,7 +284,7 @@
                 © <script>
                   document.write(new Date().getFullYear())
                 </script>,
-                made with <i class="fa fa-heart"></i> by
+                made by
                 <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Joker</a>
                 for a better web.
               </div>
@@ -320,8 +320,8 @@
                 alamat_distributor.focus();
                 swal("Invalid!", "Distributor Addresses Cannot Be Empty!", "error");
             }
-            else if(notelpon_distributor.value.trim() === '') {
-                notelpon_distributor.focus();
+            else if(notelepon_distributor.value.trim() === '') { 
+                notelepon_distributor.focus();
                 swal("Invalid!", "Distributor Phone Number Cannot Be Empty!", "error");
             }
             else {
