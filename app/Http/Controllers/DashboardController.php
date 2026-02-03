@@ -2,66 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dashboard;
 use Illuminate\Http\Request;
+use App\Models\Sale;
+use App\Models\Client;
+use App\Models\Products;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('dashboard.index',[
-            'title' => 'Dashboard'
+        $today = date('Y-m-d');
+        
+        // Today's Money (Total Sales Today)
+        $todaysMoney = Sale::whereDate('tgl_jual', $today)->sum('total_bayar');
+        
+        // Today's Transactions (Count of Sales Today)
+        $todaysTransactions = Sale::whereDate('tgl_jual', $today)->count();
+        
+        // Total Clients
+        $totalClients = Client::count();
+        
+        // Total Sales (Lifetime)
+        $totalSales = Sale::sum('total_bayar');
+
+        // Recent Orders (Limit 5)
+        $recentOrders = Order::with('pelanggan')->latest('tgl_pemesanan')->take(5)->get();
+
+        return view('dashboard.index', [
+            'title' => 'Dashboard',
+            'todaysMoney' => $todaysMoney,
+            'todaysTransactions' => $todaysTransactions,
+            'totalClients' => $totalClients,
+            'totalSales' => $totalSales,
+            'recentOrders' => $recentOrders
         ]);
-    }
-
-    /** 
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Client;
 
 class Order extends Model
 {
@@ -10,6 +11,6 @@ class Order extends Model
 
     public function pelanggan()
     {
-        return $this->belongsTo(User::class, 'id_pelanggan');
+        return $this->belongsTo(Client::class, 'id_pelanggan');
     }
 }
