@@ -17,7 +17,7 @@
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item d-flex align-items-center">
             <div class="mx-3">
-              <a href="{{route('client.create')}}" class="btn btn-primary btn-sm mb-0">Add New {{ $title }}</a>
+              <a href="{{route('client.create')}}" class="btn bg-gradient-primary btn-sm mb-0">Add New {{ $title }}</a>
             </div>
             </li>
           </ul>
@@ -36,11 +36,11 @@
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">No</th>
-                      <th class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">Nama Pelanggan</th>
-                      <th class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">Alamat</th>
-                      <th class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">No. Telepon</th>
-                      <th class="text-uppercase text-primary text-xs font-weight-bolder opacity-7">Aksi</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Pelanggan</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Alamat</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No. Telepon</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -50,12 +50,16 @@
                         <td class="text-uppercase text-xs text-secondary mb-0 ps-4">{{$data->nama_pelanggan}}</td>
                         <td class="text-uppercase text-xs text-secondary mb-0 ps-4">{{$data->alamat_pelanggan}}</td>
                         <td class="text-uppercase text-xs text-secondary mb-0 ps-4">{{$data->notelepon_pelanggan}}</td>
-                        <td class="text-uppercase text-xs text-secondary mb-0 ps-4">
-                          <a href="{{ route('client.edit', $data->id) }}"><img src="{{asset('be/assets/img/icons/edit.png')}}" alt="" width="20"></a>
-                          <form action="{{ route('client.destroy', $data->id) }}" method="POST" style="display:inline;">
+                        <td class="align-middle text-center">
+                          <a href="{{ route('client.edit', $data->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                            <i class="fas fa-edit"></i>
+                          </a>
+                          <form action="{{ route('client.destroy', $data->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" style="border:none;background:none;cursor:pointer;"><img src="{{asset('be/assets/img/icons/delete.png')}}" alt="" width="20"></button>
+                            <button type="submit" class="text-secondary font-weight-bold text-xs" style="border:none;background:none;cursor:pointer;" data-toggle="tooltip" data-original-title="Delete user">
+                              <i class="fas fa-trash"></i>
+                            </button>
                           </form>
                         </td>
                     </tr>

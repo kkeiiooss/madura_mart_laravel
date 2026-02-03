@@ -23,7 +23,7 @@ class OrderController extends Controller
     {
         return view('order.create', [
             'title' => 'Order',
-            'users' => User::all()
+            'clients' => \App\Models\Client::all()
         ]);
     }
 
@@ -46,7 +46,7 @@ class OrderController extends Controller
             return view('order.edit', [
                 'title' => 'Order',
                 'data' => Order::findOrFail($id),
-                'users' => User::all()
+                'clients' => \App\Models\Client::all()
             ]);
         } catch (ModelNotFoundException $e) {
             return redirect()->route('order.index')->with('error', 'Data order tidak ditemukan.');
