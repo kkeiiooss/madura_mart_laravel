@@ -6,6 +6,7 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class ProductController extends Controller
@@ -28,7 +29,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         try {
-            $data = $request->only(['kd_barang', 'nama_barang', 'jenis_barang', 'tgl_expired', 'harga_jual', 'stok', 'foto_barang']);
+            $request->validate([
+                'foto_barang' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            ]);
+
+            $data = $request->only(['kd_barang', 'nama_barang', 'jenis_barang', 'tgl_expired', 'harga_jual', 'stok']);
+            
+            // Handle file upload
+            if ($request->hasFile('foto_barang')) {
+                $file = $request->file('foto_barang');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('products', $filename, 'public');
+                $data['foto_barang'] = $path;
+            }
+            
             Products::create($data);
             return redirect()->route('product.index')->with('simpan', 'Produk ' . $request->nama_barang . ' berhasil disimpan');
         } catch (QueryException $e) {
@@ -58,8 +72,26 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $data = $request->only(['kd_barang', 'nama_barang', 'jenis_barang', 'tgl_expired', 'harga_jual', 'stok', 'foto_barang']);
+            $request->validate([
+                'foto_barang' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            ]);
+
+            $data = $request->only(['kd_barang', 'nama_barang', 'jenis_barang', 'tgl_expired', 'harga_jual', 'stok']);
             $product = Products::findOrFail($id);
+            
+            // Handle file upload if new file is provided
+            if ($request->hasFile('foto_barang')) {
+                // Delete old image if exists
+                if ($product->foto_barang && Storage::disk('public')->exists($product->foto_barang)) {
+                    Storage::disk('public')->delete($product->foto_barang);
+                }
+                
+                $file = $request->file('foto_barang');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('products', $filename, 'public');
+                $data['foto_barang'] = $path;
+            }
+            
             $product->update($data);
             return redirect()->route('product.index')->with('ubah', 'Produk ' . $request->nama_barang . ' berhasil diupdate');
         } catch (QueryException $e) {
@@ -79,6 +111,12 @@ class ProductController extends Controller
         try {
             $product = Products::findOrFail($id);
             $nama = $product->nama_barang;
+            
+            // Delete image file if exists
+            if ($product->foto_barang && Storage::disk('public')->exists($product->foto_barang)) {
+                Storage::disk('public')->delete($product->foto_barang);
+            }
+            
             $product->delete();
             return redirect()->route('product.index')->with('hapus', 'Produk ' . $nama . ' berhasil dihapus');
         } catch (ModelNotFoundException $e) {

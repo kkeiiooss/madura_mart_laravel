@@ -25,7 +25,7 @@
                         <h6>Add New {{ $title }}</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('product.store') }}" method="POST">
+                        <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -53,8 +53,12 @@
                                     <input type="number" class="form-control" name="stok" placeholder="Enter Quantity" required>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label class="form-label">Foto Barang (URL)</label>
-                                    <input type="text" class="form-control" name="foto_barang" placeholder="Enter Image URL" required>
+                                    <label class="form-label">Foto Barang</label>
+                                    <input type="file" class="form-control" name="foto_barang" id="foto_barang" accept="image/jpeg,image/png,image/webp" required>
+                                    <small class="text-muted">Max 2MB. Format: JPG, PNG, WEBP</small>
+                                    <div class="mt-2">
+                                        <img id="preview_image" src="#" alt="Preview" style="max-height: 150px; display: none; border-radius: 8px;">
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-end mt-4">
@@ -62,6 +66,18 @@
                                 <button type="submit" class="btn bg-gradient-primary">Save</button>
                             </div>
                         </form>
+                        <script>
+                            document.getElementById('foto_barang').addEventListener('change', function(e) {
+                                const preview = document.getElementById('preview_image');
+                                const file = e.target.files[0];
+                                if (file) {
+                                    preview.src = URL.createObjectURL(file);
+                                    preview.style.display = 'block';
+                                } else {
+                                    preview.style.display = 'none';
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
             </div>

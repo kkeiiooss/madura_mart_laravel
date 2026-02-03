@@ -25,7 +25,7 @@
                         <h6>Edit {{ $title }}</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('product.update', $data->id) }}" method="POST">
+                        <form action="{{ route('product.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -54,8 +54,18 @@
                                     <input type="number" class="form-control" name="stok" value="{{ $data->stok }}" required>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <label class="form-label">Foto Barang (URL)</label>
-                                    <input type="text" class="form-control" name="foto_barang" value="{{ $data->foto_barang }}" required>
+                                    <label class="form-label">Foto Barang</label>
+                                    @if($data->foto_barang)
+                                        <div class="mb-2">
+                                            <img src="{{ asset('storage/' . $data->foto_barang) }}" alt="Current Image" style="max-height: 100px; border-radius: 8px;">
+                                            <small class="d-block text-muted">Gambar saat ini</small>
+                                        </div>
+                                    @endif
+                                    <input type="file" class="form-control" name="foto_barang" id="foto_barang" accept="image/jpeg,image/png,image/webp">
+                                    <small class="text-muted">Max 2MB. Format: JPG, PNG, WEBP. Kosongkan jika tidak ingin mengubah gambar.</small>
+                                    <div class="mt-2">
+                                        <img id="preview_image" src="#" alt="Preview" style="max-height: 150px; display: none; border-radius: 8px;">
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-end mt-4">
@@ -63,6 +73,18 @@
                                 <button type="submit" class="btn bg-gradient-primary">Update</button>
                             </div>
                         </form>
+                        <script>
+                            document.getElementById('foto_barang').addEventListener('change', function(e) {
+                                const preview = document.getElementById('preview_image');
+                                const file = e.target.files[0];
+                                if (file) {
+                                    preview.src = URL.createObjectURL(file);
+                                    preview.style.display = 'block';
+                                } else {
+                                    preview.style.display = 'none';
+                                }
+                            });
+                        </script>
                     </div>
                 </div>
             </div>

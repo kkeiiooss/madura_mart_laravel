@@ -40,6 +40,7 @@
                                 <thead>
                                     <tr>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Foto</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Barang</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis</th>
@@ -53,6 +54,15 @@
                                         <tr>
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0 ps-3">{{ $nmr + 1 }}</p>
+                                            </td>
+                                            <td>
+                                                @if($data->foto_barang)
+                                                    <img src="{{ asset('storage/' . $data->foto_barang) }}" alt="{{ $data->nama_barang }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                                                @else
+                                                    <div style="width: 50px; height: 50px; background: #e9ecef; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                                                        <i class="fas fa-image text-secondary"></i>
+                                                    </div>
+                                                @endif
                                             </td>
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{ $data->kd_barang }}</p>
