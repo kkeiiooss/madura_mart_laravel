@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->dateTime('tgl_kirim');
             $table->unsignedBigInteger('id_kurir');
-            $table->foreign('id_kurir')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_kurir')->references('id')->on('couriers')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('id_pemesanan');
             $table->foreign('id_pemesanan')->references('id')->on('orders')->onUpdate('cascade')->onDelete('cascade');
             $table->string('bukti_foto');
-            $table->integer('no_invoice')->unique();
+            $table->string('no_invoice', 20)->unique();
             $table->timestamps();
         });
     }
