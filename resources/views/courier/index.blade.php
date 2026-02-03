@@ -62,14 +62,14 @@
                                                 <p class="text-xs font-weight-bold mb-0">{{ $data->plat_kendaraan }}</p>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <a href="{{ route('courier.edit', $data->id) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit item">
-                                                    <i class="fas fa-edit"></i>
+                                                <a href="{{ route('courier.edit', $data->id) }}" class="btn btn-link text-info px-2 mb-0" data-toggle="tooltip" title="Edit">
+                                                    <i class="fas fa-pencil-alt text-info" style="font-size: 18px;"></i>
                                                 </a>
-                                                <form action="{{ route('courier.destroy', $data->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure?')">
+                                                <form action="{{ route('courier.destroy', $data->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus data ini?')">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="text-secondary font-weight-bold text-xs" style="border:none;background:none;cursor:pointer;" data-toggle="tooltip" data-original-title="Delete item">
-                                                        <i class="fas fa-trash"></i>
+                                                    <button type="submit" class="btn btn-link text-danger px-2 mb-0" data-toggle="tooltip" title="Hapus">
+                                                        <i class="fas fa-trash text-danger" style="font-size: 18px;"></i>
                                                     </button>
                                                 </form>
                                             </td>
