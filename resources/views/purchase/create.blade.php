@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Total Bayar</label>
-                                    <input type="number" class="form-control" name="total_bayar" placeholder="Enter Total Amount" required>
+                                    <input type="text" class="form-control" name="total_bayar" placeholder="Enter Total Amount" required>
                                 </div>
                             </div>
                             <div class="text-end mt-4">

@@ -23,7 +23,8 @@ class PurchaseController extends Controller
     {
         return view('purchase.create', [
             'title' => 'Purchase',
-            'distributors' => Distributor::all()
+            'distributors' => Distributor::all(),
+            'products' => Product::all()
         ]);
     }
 

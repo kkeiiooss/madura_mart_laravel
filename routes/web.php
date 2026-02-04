@@ -24,6 +24,7 @@ Route::resource('purchase', PurchaseController::class);
 Route::resource('order', OrderController::class);
 Route::resource('sale', SaleController::class);
 Route::resource('delivery', DeliveryController::class);
+Route::resource('user', UserController::class);
 Route::controller(ReportController::class)->group(function () {
     Route::get('/report/distributor', 'distributor')->name('report.distributor');
     Route::get('/report/product', 'product')->name('report.product');
@@ -31,5 +32,3 @@ Route::controller(ReportController::class)->group(function () {
     Route::get('/report/order', 'order')->name('report.order');
     Route::get('/report/sale', 'sale')->name('report.sale');
 });
-
-Route::resource('user', UserController::class);
