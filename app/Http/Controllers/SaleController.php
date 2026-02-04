@@ -14,7 +14,7 @@ class SaleController extends Controller
     {
         return view('sale.index', [
             'title' => 'Sale',
-            'datas' => Sale::all()
+            'datas' => Sale::paginate(10)
         ]);
     }
 

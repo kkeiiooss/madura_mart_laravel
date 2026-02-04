@@ -14,7 +14,7 @@ class ClientController extends Controller
     {
         return view('client.index', [
             'title' => 'Client',
-            'datas' => Client::all()
+            'datas' => Client::paginate(10)
         ]);
     }
 

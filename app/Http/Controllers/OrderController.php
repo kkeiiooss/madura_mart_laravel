@@ -15,7 +15,7 @@ class OrderController extends Controller
     {
         return view('order.index', [
             'title' => 'Order',
-            'datas' => Order::with('pelanggan')->get()
+            'datas' => Order::with('pelanggan')->paginate(10)
         ]);
     }
 

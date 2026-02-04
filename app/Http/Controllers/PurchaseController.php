@@ -15,7 +15,7 @@ class PurchaseController extends Controller
     {
         return view('purchase.index', [
             'title' => 'Purchase',
-            'datas' => Purchase::with('distributor')->get()
+            'datas' => Purchase::with('distributor')->paginate(10)
         ]);
     }
 

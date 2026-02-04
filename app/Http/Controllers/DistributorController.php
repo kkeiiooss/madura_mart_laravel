@@ -14,7 +14,7 @@ class DistributorController extends Controller
     {
         return view('distributor.index', [
             'title' => 'Distributor',
-            'datas' => Distributor::all()
+            'datas' => Distributor::paginate(10)
         ]);
     }
 

@@ -50,7 +50,7 @@
                                     @foreach ($datas as $nmr => $data)
                                         <tr>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0 ps-3">{{ $nmr + 1 }}</p>
+                                                <p class="text-xs font-weight-bold mb-0 ps-3">{{ $datas->firstItem() + $nmr }}</p>
                                             </td>
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">{{ $data->nama_distributor }}</p>
@@ -77,6 +77,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="px-4 py-3 border-top">
+                            {{ $datas->links('pagination::bootstrap-5') }}
                         </div>
                     </div>
                 </div>

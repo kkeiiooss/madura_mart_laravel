@@ -39,51 +39,51 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Foto</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama Barang</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Jenis</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Harga Jual</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Stok</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7">No</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Foto</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Kode</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Nama Barang</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Jenis</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Harga Jual</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2">Stok</th>
+                                        <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($datas as $nmr => $data)
                                         <tr>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0 ps-3">{{ $nmr + 1 }}</p>
+                                                <p class="text-sm font-weight-bold mb-0 ps-3">{{ $datas->firstItem() + $nmr }}</p>
                                             </td>
                                             <td>
                                                 @if($data->foto_barang)
                                                     <img src="{{ asset('storage/' . $data->foto_barang) }}" 
                                                          alt="{{ $data->nama_barang }}" 
-                                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; cursor: pointer;"
+                                                         style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; cursor: pointer;"
                                                          onclick="showProductDetail({{ $data->id }}, '{{ $data->kd_barang }}', '{{ addslashes($data->nama_barang) }}', '{{ $data->jenis_barang }}', {{ $data->harga_jual }}, {{ $data->stok }}, '{{ asset('storage/' . $data->foto_barang) }}')"
                                                          title="Klik untuk melihat detail">
                                                 @else
-                                                    <div style="width: 50px; height: 50px; background: #e9ecef; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer;"
+                                                    <div style="width: 80px; height: 80px; background: #e9ecef; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer;"
                                                          onclick="showProductDetail({{ $data->id }}, '{{ $data->kd_barang }}', '{{ addslashes($data->nama_barang) }}', '{{ $data->jenis_barang }}', {{ $data->harga_jual }}, {{ $data->stok }}, '')"
                                                          title="Klik untuk melihat detail">
-                                                        <i class="fas fa-image text-secondary"></i>
+                                                        <i class="fas fa-image text-secondary" style="font-size: 24px;"></i>
                                                     </div>
                                                 @endif
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $data->kd_barang }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $data->kd_barang }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $data->nama_barang }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $data->nama_barang }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $data->jenis_barang }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $data->jenis_barang }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">Rp {{ number_format($data->harga_jual) }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">Rp {{ number_format($data->harga_jual) }}</p>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">{{ $data->stok }}</p>
+                                                <p class="text-sm font-weight-bold mb-0">{{ $data->stok }}</p>
                                             </td>
                                             <td class="align-middle text-center">
                                                 
@@ -103,6 +103,9 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="px-4 py-3 border-top">
+                            {{ $datas->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,7 +114,7 @@
 
     <!-- Product Detail Modal -->
     <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header bg-gradient-primary">
                     <h5 class="modal-title text-white" id="productDetailModalLabel">
@@ -124,7 +127,7 @@
                         <div class="col-md-5 text-center">
                             <div id="modalImageContainer" class="mb-3">
                                 <img id="modalProductImage" src="" alt="Product Image" 
-                                     style="max-width: 100%; max-height: 300px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
+                                     style="max-width: 100%; max-height: 500px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);">
                             </div>
                             <div id="modalNoImage" style="display: none; width: 100%; height: 200px; background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
                                 <i class="fas fa-image text-secondary" style="font-size: 48px;"></i>
@@ -133,27 +136,27 @@
                         <div class="col-md-7">
                             <table class="table table-borderless">
                                 <tr>
-                                    <td class="text-secondary" style="width: 40%;"><i class="fas fa-barcode me-2"></i>Kode Barang</td>
-                                    <td class="font-weight-bold" id="modalKode">-</td>
+                                    <td class="text-secondary text-lg" style="width: 35%;"><i class="fas fa-barcode me-2"></i>Kode Barang</td>
+                                    <td class="font-weight-bold text-lg" id="modalKode">-</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-secondary"><i class="fas fa-tag me-2"></i>Nama Barang</td>
-                                    <td class="font-weight-bold" id="modalNama">-</td>
+                                    <td class="text-secondary text-lg"><i class="fas fa-tag me-2"></i>Nama Barang</td>
+                                    <td class="font-weight-bold text-lg" id="modalNama">-</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-secondary"><i class="fas fa-layer-group me-2"></i>Jenis</td>
+                                    <td class="text-secondary text-lg"><i class="fas fa-layer-group me-2"></i>Jenis</td>
                                     <td id="modalJenis">
-                                        <span class="badge bg-gradient-info">-</span>
+                                        <span class="badge bg-gradient-info text-md">-</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-secondary"><i class="fas fa-money-bill-wave me-2"></i>Harga Jual</td>
-                                    <td class="font-weight-bold text-success" style="font-size: 1.2rem;" id="modalHarga">-</td>
+                                    <td class="text-secondary text-lg"><i class="fas fa-money-bill-wave me-2"></i>Harga Jual</td>
+                                    <td class="font-weight-bold text-success text-xl" style="font-size: 1.5rem !important;" id="modalHarga">-</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-secondary"><i class="fas fa-boxes me-2"></i>Stok</td>
+                                    <td class="text-secondary text-lg"><i class="fas fa-boxes me-2"></i>Stok</td>
                                     <td id="modalStokContainer">
-                                        <span class="badge bg-gradient-success" style="font-size: 1rem;" id="modalStok">-</span>
+                                        <span class="badge bg-gradient-success text-md" style="font-size: 1.1rem;" id="modalStok">-</span>
                                     </td>
                                 </tr>
                             </table>

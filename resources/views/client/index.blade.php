@@ -46,7 +46,7 @@
                   <tbody>
                     @foreach ($datas as $nmr => $data)
                     <tr>
-                        <td class="text-uppercase text-xs text-secondary mb-0 ps-4 text-center">{{$nmr + 1 . "."}}</td>
+                        <td class="text-uppercase text-xs text-secondary mb-0 ps-4 text-center">{{ $datas->firstItem() + $nmr . "."}}</td>
                         <td class="text-uppercase text-xs text-secondary mb-0 ps-4">{{$data->nama_pelanggan}}</td>
                         <td class="text-uppercase text-xs text-secondary mb-0 ps-4">{{$data->alamat_pelanggan}}</td>
                         <td class="text-uppercase text-xs text-secondary mb-0 ps-4">{{$data->notelepon_pelanggan}}</td>
@@ -66,6 +66,9 @@
                     @endforeach
                   </tbody>
                 </table>
+              </div>
+              <div class="px-4 py-3 border-top">
+                  {{ $datas->links('pagination::bootstrap-5') }}
               </div>
             </div>
           </div>
